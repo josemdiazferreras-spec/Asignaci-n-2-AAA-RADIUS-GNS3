@@ -1,4 +1,5 @@
 # Semana 6 — Infraestructura AAA/RADIUS con Active Directory, NPS y Cisco
+Jose Miguel Diaz - 2025-0693
 
 > **🎬 Video demostrativo (YouTube): PENDIENTE — insertar aquí el enlace real después de publicarlo.**  
 > **Estado:** laboratorio técnicamente verificado; repositorio preparado para revisión, aún no publicado.
@@ -102,39 +103,6 @@ Los comandos de configuración de IOS se incluyen íntegros como **running-confi
 
 La topología presentada es la **captura original de GNS3**, sin PC, Cloud ni dispositivos añadidos. Los archivos de comandos son de referencia y no deben ejecutarse automáticamente con secretos marcados.
 
-## Archivos entregados
-
-```text
-Semana6-AAA-RADIUS-GitHub-LISTO-PARA-REVISAR/
-├── README.md
-├── configs/
-│   ├── R1-running-config-SANITIZADO.txt
-│   └── SW1-running-config-SANITIZADO.txt
-├── comandos/
-│   ├── README.md
-│   ├── 01-AAA-RADIUS-SSH-CISCO.txt
-│   ├── 02-VERIFICACIONES-CISCO.txt
-│   └── 03-NPS-AD-PROCEDIMIENTO.md
-├── diagramas/
-│   └── topologia-aaa-radius.png
-├── evidencias/
-│   └── 16 capturas seleccionadas
-└── docs/
-    ├── INFORME-TECNICO.md
-    ├── INFORME-TECNICO.docx
-    ├── GUIA-VIDEO.md
-    ├── CHECKLIST-ENTREGA.md
-    └── ENLACES-ENTREGA.txt
-```
-
-## Limitaciones y seguridad
-
-1. Las configuraciones de `configs/` contienen **marcadores en lugar de hashes/secretos reales**; no deben copiarse sin sustituirlos por valores propios seguros.
-2. No se ha probado físicamente el puerto AUX, aunque está configurado en ambos equipos.
-3. La depuración `debug aaa authorization` confirmó `processing AV priv-lvl=10` y `Authorization successful`; se desactivó con `undebug all`. **No existe evidencia de auditoría persistente por comando**: RADIUS Accounting EXEC no equivale a TACACS+ command accounting.
-4. Las capturas de NPS evidencian solicitudes Start/Stop, no necesariamente respuestas de Accounting ni garantía de entrega a un sistema externo de auditoría.
-5. La clave RADIUS utilizada durante el laboratorio estuvo expuesta en la conversación. Debe rotarse si se reutiliza la infraestructura; evitar publicar secretos, credenciales o archivos íntegros de la máquina virtual.
-6. El video y URL GitHub siguen pendientes hasta su publicación por el estudiante.
 
 ## Conclusión
 
