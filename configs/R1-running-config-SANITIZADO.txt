@@ -1,0 +1,98 @@
+! R1 - Cisco IOS 15.2(4)S6
+! Export de show running-config, sanitizado para documentacion publica.
+! Los secretos y hashes originales se sustituyeron por marcadores.
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+logging buffered 16384 informational
+!
+aaa new-model
+!
+aaa group server radius RAD-GROUP
+ server name NPS-SERVER
+!
+aaa authentication login default local
+aaa authentication login RAD-LOCAL group RAD-GROUP local
+aaa authentication login CONSOLA-LOCAL local
+aaa authorization console
+aaa authorization exec default local
+aaa authorization exec RAD-EXEC group RAD-GROUP local
+aaa authorization exec CONSOLA-EXEC local
+aaa accounting exec default start-stop group RAD-GROUP
+!
+aaa session-id common
+no ip icmp rate-limit unreachable
+no ip domain lookup
+ip domain name lab.local
+ip cef
+login on-failure log
+login on-success log
+no ipv6 cef
+multilink bundle-name authenticated
+!
+! Reemplazar marcador por secreto local seguro antes de aplicar.
+username adminlocal privilege 15 secret 5 <HASH_LOCAL_REDACTADO>
+!
+ip tcp synwait-time 5
+ip ssh version 2
+!
+interface FastEthernet0/0
+ description ENLACE_HACIA_SW1
+ ip address 10.6.93.1 255.255.255.0
+ duplex full
+!
+interface GigabitEthernet1/0
+ description ADMINISTRACION_DESDE_HOST
+ ip address 192.168.200.250 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+radius server NPS-SERVER
+ address ipv4 10.6.93.10 auth-port 1812 acct-port 1813
+ key <CLAVE_RADIUS_REDACTADA>
+!
+control-plane
+!
+line con 0
+ privilege level 15
+ authorization exec CONSOLA-EXEC
+ logging synchronous
+ login authentication CONSOLA-LOCAL
+ stopbits 1
+line aux 0
+ privilege level 15
+ authorization exec CONSOLA-EXEC
+ logging synchronous
+ login authentication CONSOLA-LOCAL
+ stopbits 1
+line vty 0 4
+ authorization exec RAD-EXEC
+ login authentication RAD-LOCAL
+ transport input ssh
+!
+end

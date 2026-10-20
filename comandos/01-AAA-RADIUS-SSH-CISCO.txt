@@ -1,0 +1,46 @@
+! Fragmentos documentales de running-config final de R1 y SW1.
+! No ejecutar como script completo: contiene marcadores de secretos.
+! Configuración común verificada:
+aaa new-model
+aaa group server radius RAD-GROUP
+ server name NPS-SERVER
+!
+aaa authentication login default local
+aaa authentication login RAD-LOCAL group RAD-GROUP local
+aaa authentication login CONSOLA-LOCAL local
+aaa authorization console
+aaa authorization exec default local
+aaa authorization exec RAD-EXEC group RAD-GROUP local
+aaa authorization exec CONSOLA-EXEC local
+aaa accounting exec default start-stop group RAD-GROUP
+aaa session-id common
+!
+login on-failure log
+login on-success log
+logging buffered 16384 informational
+service timestamps debug datetime msec
+service timestamps log datetime msec
+ip ssh version 2
+!
+radius server NPS-SERVER
+ address ipv4 10.6.93.10 auth-port 1812 acct-port 1813
+ key <CLAVE_RADIUS_REDACTADA>
+!
+username adminlocal privilege 15 secret 5 <HASH_LOCAL_REDACTADO>
+!
+line con 0
+ authorization exec CONSOLA-EXEC
+ login authentication CONSOLA-LOCAL
+line aux 0
+ authorization exec CONSOLA-EXEC
+ login authentication CONSOLA-LOCAL
+line vty 0 4
+ authorization exec RAD-EXEC
+ login authentication RAD-LOCAL
+ transport input ssh
+!
+! Particularidades verificadas:
+! R1: Fa0/0 10.6.93.1/24; Fa0/0 hacia SW1; no ip http server / no ip http secure-server.
+! SW1: interfaz Vlan10 10.6.93.2/24; default-gateway 10.6.93.1;
+!       Gi0/0 y Gi0/1 access VLAN 10; no ip http server / no ip http secure-server.
+! Consultar configs/ para líneas exactas de cada equipo y parámetros adicionales.

@@ -1,0 +1,42 @@
+COMANDOS DE VERIFICACIÓN UTILIZADOS EN LA PRÁCTICA
+================================================
+
+Desde las consolas de R1 / SW1 según corresponda:
+show running-config
+show running-config | include ^aaa accounting
+show running-config | include ^logging
+show running-config | include ^login on
+show running-config | include ^ip http|^no ip http
+show ip ssh
+show privilege
+show logging | include LOGIN|LOGOUT
+show logging | include LOGIN_FAILED|LOGIN_SUCCESS
+show logging | include AAA|AUTHOR|RADIUS
+show debugging
+
+Ejemplos de acceso SSH desde una consola IOS (sustituir IP según destino):
+ssh -l diaz.nivel10 10.6.93.1
+ssh -l diaz.nivel10 10.6.93.2
+! Se usaron además cuentas de los grupos AD niveles 5 y 0.
+! No pegar contraseñas en los archivos del repositorio.
+
+Diagnóstico controlado de autorización EXEC (desactivar inmediatamente después):
+debug aaa authorization
+! Iniciar sesión SSH en el dispositivo, observar los AV pares y show privilege.
+undebug all
+show debugging
+
+Guardado de configuración después de completar pruebas:
+copy running-config startup-config
+
+Comprobaciones documentadas en el laboratorio:
+- AAA/AUTHOR/EXEC: processing AV priv-lvl=10; Authorization successful.
+- LOGIN_SUCCESS, LOGIN_FAILED y LOGOUT.
+- Archivo de NPS IN2610: Packet-Type=4, Acct-Status-Type=1 (Start)
+  y Acct-Status-Type=2 (Stop) para R1 y SW1.
+
+NOTAS:
+- No se configuró contabilidad por COMANDO con RAD-GROUP: el IOSv la rechazó
+  porque esa función requiere TACACS+ en la variante probada.
+- Los eventos debug de autorización no equivalen a logs persistentes de comandos.
+- La línea AUX fue configurada pero no conectada físicamente.
