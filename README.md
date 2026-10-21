@@ -1,7 +1,7 @@
 # Semana 6 — Infraestructura AAA/RADIUS con Active Directory, NPS y Cisco
 Jose Miguel Diaz - 2025-0693
 
-> **🎬 Video demostrativo (YouTube): [https://youtu.be/5g14_T_egnA](https://youtu.be/5g14_T_egnA)  
+> **🎬 Video: [https://youtu.be/5g14_T_egnA](https://youtu.be/5g14_T_egnA)  
 
 
 **📘 [Informe técnico ilustrado y completo (PDF)](docs/INFORME-TECNICO.pdf)** · [Word editable](docs/INFORME-TECNICO.docx) · [Versión Markdown](docs/INFORME-TECNICO.md)
