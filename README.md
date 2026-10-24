@@ -93,17 +93,6 @@ El ID `00000008` coincide dentro de cada pareja de registros; no se utiliza como
 
 La carpeta [`evidencias/`](evidencias/) conserva también las demás capturas finales seleccionadas. **No se incluyen capturas históricas de atributos o políticas erróneas**.
 
-## Informe técnico independiente
-
-[**Leer informe técnico completo**](docs/INFORME-TECNICO.md) · [Descargar versión Word](docs/INFORME-TECNICO.docx) · [Ver PDF](docs/INFORME-TECNICO.pdf). Incluye propósito, topología original, arquitectura AAA/NPS, pruebas, Accounting, seguridad, limitaciones y conclusiones.
-
-## Comandos, scripts y procedimientos utilizados
-
-Los comandos de configuración de IOS se incluyen íntegros como **running-configs sanitizados** en [`configs/`](configs/). También se entrega una carpeta [`comandos/`](comandos/) que documenta los fragmentos de AAA/RADIUS/SSH, los comandos de validación y los pasos de Active Directory/NPS utilizados mediante interfaz gráfica. **No se ha inventado ningún script de Windows ni se afirma que se haya ejecutado PowerShell**. Véase [inventario de comandos](comandos/README.md).
-
-La topología presentada es la **captura original de GNS3**, sin PC, Cloud ni dispositivos añadidos. Los archivos de comandos son de referencia y no deben ejecutarse automáticamente con secretos marcados.
-
-
 ## Conclusión
 
 La infraestructura demuestra autenticación SSH centralizada contra Windows NPS/AD y asignación de niveles IOS mediante `Cisco-AVPair`, con respaldo local definido, registro de eventos y Accounting de inicio/cierre de sesión en R1 y SW1. Las pruebas identifican con transparencia el alcance y las limitaciones del laboratorio.
